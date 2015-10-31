@@ -30,7 +30,7 @@ init: function() {
     },
 
     push_init: function(){
-        app.SENDER_ID = "1057793344396"; // replaced by my actual GCM project no
+        app.SENDER_ID = 1057793344396; // replaced by my actual GCM project no
 
         var pushNotification = window.plugins.pushNotification;
 
@@ -48,4 +48,5 @@ init: function() {
    }
 
 };
+
 app.init();
