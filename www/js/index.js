@@ -17,33 +17,35 @@
  * under the License.
  */
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
+init: function() {
+    document.addEventListener("deviceready", this.onDeviceReady, false);
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    onDeviceReady: function(){
+       // DO STUFF
+       // ....
 
-        console.log('Received Event: ' + id);
-    }
+       // ENABLE PUSH
+       this.push_init();
+    },
+
+    push_init: function(){
+        app.SENDER_ID = "123456789"; // replaced by my actual GCM project no
+
+        var pushNotification = window.plugins.pushNotification;
+
+        pushNotification.register( 
+            function(){alert('Push: win');}, // never called
+            function(){alert('Push: Error');},  // never called
+            { senderID: app.SENDER_ID, ecb: "app.push_android" }
+        );
+    },
+   // never called
+   push_android: function(e){
+       alert('connection established...');
+   console.log( 'successfully started android' );
+   console.log( e );
+   }
+
 };
+app.init();
